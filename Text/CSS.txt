@@ -1,0 +1,23 @@
+CSS
+
+display:flex;  --> flexbox layout
+display:grid;  --> grid layout
+
+flex-direction: row | row-reverse | column | column-reverse;
+row (default)	Items are placed horizontally from left to right.
+column	Items are placed vertically from top to bottom.
+
+flex-wrap: wrap;
+The flex-wrap property in CSS controls whether flex items are forced onto a single line or can wrap onto multiple lines within a flex container. By default, items try to fit on one line, which may cause overflow. Allowing wrapping improves responsiveness and layout control.
+
+justify-content → Aligns items along the main axis (horizontal by default).
+align-items → Aligns items along the cross axis (vertical by default).
+If you change flex-direction to column, the axes swap:
+Main axis → vertical
+Cross axis → horizontal
+
+The float property specifies how an element should float within its container.
+It places an element on the left or right side of its container, allowing text and inline elements to wrap around it.
+
+filter: greyscale(100%) | blur(10px).....
+The filter property defines visual effects (like blur and saturation) to an element (often <img>).

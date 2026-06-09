@@ -1,0 +1,164 @@
+JDBC
+
+    For the application to connect to the DB there are 7 steps to be followed 
+
+    Steps:
+    1. Import packages in java
+    2. Load Driver
+        Driver is provided by the RDBMS - each one can be diff
+        from Java 6 this is optional -> JVM auto-loads the driver
+        2.1. Register the driver 
+    3. Establish connection
+            Connection con = DriverManager.getConnection(url, user, password);
+                url -> rdbms name, database name, local host - port no
+            Statement stmt = con.createStatement();
+                There are other class similar to Statement, we can use them also
+                Statement is not secure -> prone to SQL injection i.e 
+                    in place of a number you can enter an sql query
+                PreparedStatemnt is better option because it doesn't allow an SL query in place of a number
+    5. Execute Statement
+            ResultSet rs = stmt.executeQuery("SELECT * FROM students");
+                The executeQuery() returns a ResultSet
+                here the 'rs' is like a pointer to the result 
+    6. Process Results
+    7. Close the connection
+            stmt.close();
+            con.close();
+
+SPRING JDBC:
+
+Spring simplifies JDBC connection with the help of JDBCTemplate
+JDBCTemplate -> JDBC technology +  Template Design Pattern
+This template carries all the boiler plate code and reduces developers work
+    JDBCTemplate depends on DataSource [This is an interface]
+    DriverManagerDataSource is an implementation calss and we have to create a bean for this class and inject it to JDBCTemplate
+
+    The DriverManagerDataSource takes 4 parameters and is responsible for giving the DB connection
+
+Need for Spring JDBC when we can connect through normal JDBC:
+    1. Optimization
+        For every request a new connection is established 
+        InstDataSource provides connection pooling
+    2. Reduce Boilerplate code
+
+What is JdbcTemplate?
+    JdbcTemplate is a Spring Framework class used to interact with databases easily.
+    It simplifies JDBC by:
+
+    Removing boilerplate code
+    Handling connection open and close
+    Handling SQL exceptions internally
+
+    Package name:
+    org.springframework.jdbc.core.JdbcTemplate
+
+Why use JdbcTemplate?
+    Problems with normal JDBC:
+        Too much code
+        Manual connection handling
+        Manual exception handling
+    
+    JdbcTemplate advantages:
+        Less code
+        Easy database operations
+        No manual connection management
+        Cleaner and readable code
+
+    Conclusion:
+    JdbcTemplate makes JDBC simple.
+
+When to use JdbcTemplate?
+    Use JdbcTemplate when:
+        You are using Spring
+        You want simple database operations
+        You do not want complex ORM frameworks
+
+    Required dependency (Maven)
+        <dependency>
+            <groupid>org.springframework.boot</groupid>
+            <artifactid>spring-boot-starter-jdbc</artifactid>
+        </dependency>
+
+
+Database configuration (application.properties)
+
+    spring.datasource.url=jdbc:mysql://localhost:3306/testdb
+    spring.datasource.username=root
+    spring.datasource.password=root
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+
+Creating JdbcTemplate object
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    Spring automatically creates and injects JdbcTemplate.
+
+
+Insert operation example
+    SQL:
+        INSERT INTO student VALUES (1, 'Lahari');
+        Java code:
+        String sql = "INSERT INTO student VALUES (?, ?)";
+        int result = jdbcTemplate.update(sql, 1, "Lahari");
+        System.out.println("Rows inserted: " + result);
+        Note:
+        update() method is used for INSERT, UPDATE and DELETE.
+
+
+Update operation example
+    String sql = "UPDATE student SET name=? WHERE id=?";
+    jdbcTemplate.update(sql, "Anu", 1);
+
+
+Delete operation example
+    String sql = "DELETE FROM student WHERE id=?";
+    jdbcTemplate.update(sql, 1);
+
+
+Read single value example (COUNT)
+    String sql = "SELECT COUNT(*) FROM student";
+    int count = jdbcTemplate.queryForObject(sql, Integer.class);
+    System.out.println(count);
+
+
+Read single row example
+    String sql = "SELECT name FROM student WHERE id=?";
+    String name = jdbcTemplate.queryForObject(sql, String.class, 1);
+    System.out.println(name);
+
+
+Read multiple rows example
+    String sql = "SELECT * FROM student";
+    List<student> students = jdbcTemplate.query(
+        sql,
+            (rs, rowNum) -> new Student(
+            rs.getInt("id"),
+            rs.getString("name")
+        )
+    );</student>
+
+
+Student class
+    public class Student {
+        private int id;
+        private String name;
+
+        public Student(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+    }
+
+Important JdbcTemplate methods
+    update() – for INSERT, UPDATE, DELETE
+    queryForObject() – for single row or single value
+    query() – for multiple rows

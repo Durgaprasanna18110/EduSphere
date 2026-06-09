@@ -1,0 +1,81 @@
+Frontend:
+    html, css, jjs
+    bootstrap
+    typescript
+    react.js
+
+
+what is intranet
+        www....
+        web page
+
+tags:
+    . paired and unpaired
+    . semantic tags:
+        header, footer, sections,......
+
+element --> <h1> this is element </h1>
+tag     --> h1
+attribute --> <a href="http/" />
+                you can give telephone numbers and email also
+    
+css:
+    css selectors
+    css box model
+    css flex and grid
+    css dimensions
+    css media query
+
+javascript:
+    . design interactive web pages
+    . to run js we have 2 options
+            1. browser
+            2. outside the browser (node.js)
+    
+    . what is ECMA script ?
+        ECMAScript (ES) is a programming language standard created to ensure that scripting languages work the same way across different browsers and environments.
+        It is maintained by the organization ECMA International.
+    
+    . Write some code on ES6 features
+    . DOM
+        explain a basic to do list app to understand the dom in html
+    
+    . Synchronous
+        JS is by default synchronous in nature
+        But we can asynchronous behaviour also
+            We can achieve asynchronous behavior using setTimeout
+            non-blocking
+    
+            But internally js first runs all the synchronous parts and then async parts
+
+    . JS uses Stack memory
+    . In Js we can create objs without creating classes
+        We can create objs using {}
+
+    . Create an employee array obj with id, name, salary, dept
+        display all employee
+        display only hr
+        add new employee
+
+
+Bootstrap:
+
+    Boiler plate code:
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        
+        </head>
+        <body>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        
+        </body>
+        </html>
+
+    Shecodes - cheetsheet
+    hackerthemes - cheetsheet

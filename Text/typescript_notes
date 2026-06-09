@@ -1,0 +1,17 @@
+Type script
+
+-> It adds type to js (i.e it will add data type)
+-> Code readability
+-> It is a superset of js (built on top of js)
+
+-> RUN :
+    1. 
+        $ npx tsc demot.ts
+            this will create a .js file
+            now run that js file
+        $ node demo.js
+
+            [OR]
+    2.
+        We can directly run ti using node
+        $ node demo.ts

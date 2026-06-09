@@ -1,0 +1,150 @@
+Why CMD Line?
+-> New features are intri=oduced in cmd line before integrating in the GUI
+-> Online help
+-> Provides all the power of GIT
+-> Consistent with terminal on linux/mac and git bash on windows
+
+Why source control?
+-> A type of Backup
+-> Versioning / history
+-> Undo changes
+-> Comparing
+-> Collaboration
+-> Isolation of changes
+
+Two types of source control options:
+1. Centralized: 
+    Contains a centralized server which stores al the versions(files)
+    So, even small operations like editing a file requires connection to the central server
+    Ex: Subversion, CVS
+2. Decentralized / Distributed:
+    No central server - most operations are loacl
+    Ex: Git, Mecurial(Hg)
+
+Repository: Collections of version control files are stored here
+    Repository also contains history of changes and any special configurations
+    Manages the commit history
+
+Three States of Git;
+1. Working directory : The folder on our local system that holds all the project files
+    All these files may or may not be managed by git.
+    It contains '.git' folder which is the actual git repo
+2. Staging area:  The changes in these files are not commited yet
+3. Commit
+4. Remote repo: 
+
+Master branch: This is the default branch
+    branches contains the commit history
+
+Main branch: github has changed the default branches name to 'main' for all the new repos 
+    but, it can be reset back to master 
+    Settings -> Repositories -> Repository default branch -> change to master and update
+
+
+-----------------------------------------------------------------------------
+
+Commands:
+
+Basic commands:
+
+-> $ ls 
+-> $ ls -al
+-> $ pwd
+-> $ cd floder(dir)_name
+-> $ mkdir dir_name
+-> $ cd ..
+-> $ mv old_name new_name
+-> $ unzip ~/downloads/initializer.zip
+    this unzips a zip file
+    ~ - refers to user's home directory
+-> $ rm -rf name
+    rm → remove (used to delete files or directories).
+    -r → recursive (tells rm to delete directories and their contents, including subdirectories and files).
+    -f → force (ignores nonexistent files and overrides prompts, so it won’t ask for confirmation).
+    name → the file or directory you want to delete.
+
+
+-> To check if git is installed or not:
+    $ git version
+
+-> To configure user name and email
+    generally it would be done automatically but it is not reliable so better to do it on ur own
+    $ git config --global user.name "lahari"
+    $ git config --global user.email "lahari@gmail.com"
+    $ git config --global --list
+
+-> Cloning a repo: to get a copy of the onlie repo created in the local system
+    $ git clone https://......
+    that url must be copied from the web page
+    Cloning will create a folder(directory) with the name of our repo
+
+
+-> List out the contents of the repo
+    $ ls
+
+-> $ git status
+    Tells the current branch (default master)
+    Shows Files in your working directory that Git isn’t tracking yet (git add) (new files created).
+    Shows files that have been modified but not yet added to the staging area (git add) (git is already tracking but changes are made)
+    And also tells is there are any uncomitted changes (untracked files) in the current branch
+
+-> $ echo "Some text..........." >> start.txt
+    Creates a file 'start.txt' with the given text
+
+-> $ cat start.txt
+    Displays contents of that file
+
+-> $ git commit -m "....commit msg........"
+    The files will be moved from the staging area to the local repo
+
+-> $ git push origin master
+    origin - name of our remote repo, automatically set when we clone the repo from github
+    master - name of the branch to be pushed
+    the push commands pompts for the github username and password 
+    once everything is completed the changes will be reflected in the webpage
+
+For Branch names
+
+-> $ git branch -m main
+    This command renames the current branch as 'main'
+    -m means rename or move
+    $ git branch -m old_branch_name new_branch_name
+    this can also be used to rename branches
+
+-> $ git init -b main repo_name
+    This is used to set the default branch as main when initializing the repo
+    $ git config --global init.defaultBranch main
+
+-> git branch new_branch_name
+    Creates a new branch but stays in the current branch
+
+-> git checkoouct branch_name
+    Switches to that particular branch
+
+Initializing a repo
+
+-> $ git init repo_name
+    creates a new repo in the present working directory
+
+-> $ ls 
+    Lists all files and folers in pwd
+    $ ls -al 
+    includes .files and folders such as .git/
+
+root-commit -> Indicates the first commit in the repo
+
+-> $ git add .
+    Recursively adds all the files of that project to the git staging area 
+    $ git add file1.java file2.java
+
+
+
+Working with existing project:
+
+Fork: See others have created a repo and started working. 
+    Now inorder to have a copy of that repo in your personal space, use the fork repo option
+    After orking you must clone that repo into your local system
+
+-> $ git reset HEAD <file> 
+    To unstage a file
+-> $ git checkout --

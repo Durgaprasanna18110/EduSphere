@@ -1,0 +1,101 @@
+Monolithic vs Microservice:
+
+    Monolithic:
+        All features are implemented in a single application
+        So everything runs on a single port -> Load will be heavy (no load balancing)
+        Dis:
+            Single point of failure
+            If a new deployment takes place then, the entire system will restart
+            
+    
+    Microservices:
+        Each module is developed as a seperate application -> load will be balanced
+        Adv:
+            Multiple dbs and multiple languages for each service
+                ex: login   -> 9001 -> java    -> MySQL
+                    catalog -> 9002 -> .net    -> sqlServer
+                    cart    -> 9003 -> node.js -> mongoDB
+            No single point of failure
+            Loosely coupled (each service runs independently)
+            Easy to enhance new features
+
+            If a new deployment takes place then, the entire system will not restart
+                only that particular service will restart
+
+API Gateway:
+    . Here we can write common logic
+        Ex: Authentication, routing
+    . Each service has a diferent port number -> Becomes hard to manage as the number of services increase
+    . It provides a common entry point
+        Using API Gateway port number we can navigate to any service
+
+Communication:
+    For communication between services we can use:
+        1. Rest template
+        2. Feign client
+        3. Web client
+
+Eureka Server:
+    . Registers services
+    . We can find out which services are running and which services are down
+    . It displays a dashboard
+
+Config server:
+    . It contains .yml file
+    . We can mage configurations of all the services
+
+. Create 2 Microservices
+. Register in eureka server
+. access it using api Gateway
+
+Steps to create eureka server:
+
+    1. Dependency
+            Eureka server
+    
+    2. Properties file
+            spring.application.name=eurekaserver
+
+            eureka.client.register-with-eureka=false
+            eureka.client.fetch-registry=false
+
+            server.port = 8761
+
+    3. Annotation
+            In the main class 
+            @EnableEurekaServer
+
+Steps to create a microservice and register with eureka:
+
+    1. Dependency
+            Eureka client + (your other dependencies)
+            actuator
+
+    2. Properties file
+            spring.application.name=eurekaserver
+
+            eureka.client.register-with-eureka=true
+            eureka.client.fetch-registry=true
+
+            server.port = 9000
+    
+    3. Annotation
+            @
+    
+Gateway
+    1. Dependency
+            Gateway
+            webflux
+    
+
+Feign client:
+    . Used for Microservice communications
+    . It is a declarative way
+        ex: Same like how we test in postman, just call the url
+    . To use feign client, just define the interface
+
+    Steps:
+        1. Dependency
+        
+        2. 
+            Add the 

@@ -1,0 +1,68 @@
+. It is founded by facebook
+. It is a library
+. Mainly used to develop SPA
+    (without refresh the data gets changed dynamically)
+
+
+diff btw react and angular
+    Refer google images
+    React
+        . From facebook
+        . Library (UI library)
+        . SPA
+        . Uses virtual dom
+    
+    Angular
+        . From Google
+        . Framework - Set of Libraries
+        . SPA
+        . Uses actual dom
+
+Component:
+    . It is a piece of UI in the web page
+        Ex: header, footer, asile, nav
+
+JSX:
+    . Javascript xml
+    . In JSX we can writee js and html code
+        jsx = html + js
+               <>  + {}
+
+To add bootstrap:
+    1. npm i bootstrap 
+    2. add this import in main.jsx 
+        import 'bootstrap/dist/css/bootstrap.min.css';
+        
+To create a react project folder:
+    . npm create vite@latest componentsdemo
+        Then choose React -> Javascript + React Compiler
+    . To run -> npm run dev
+
+Flow of a react project:
+    . index.html (one single page)
+        |
+    . main.jsx
+        |
+    . App.jsx(parent component)
+        |
+    . Child.jsx(child component)
+        |
+    . GrandChild.jsx (Nested child)
+    
+
+Lifecycle of a react component:
+    From creation to destruction
+
+Hooks:
+    useEffect:
+        . It is used to perform side effects
+        . using this we can perform life ccycle methid in functional components
+        . Ex of side effects- backend API call
+
+* UseState vs UseContext 
+    local state ; Global state
+
+    For large scale applications such as Enterprise apps managing state using useContext is difficult 
+    so there is a dedicated library for managing state i.e Redux
+
+* Redux vs UseContext

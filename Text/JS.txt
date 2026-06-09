@@ -1,0 +1,67 @@
+JS
+
+Selecting Elements
+
+JavaScript provides several methods to select elements in the DOM:
+
+getElementById(): Selects an element by its ID. var element = document.getElementById("demo");
+
+getElementsByName(): Selects elements by their name attribute. var elements = document.getElementsByName("name");
+
+getElementsByTagName(): Selects elements by their tag name. var elements = document.getElementsByTagName("p");
+
+getElementsByClassName(): Selects elements by their class name. var elements = document.getElementsByClassName("class");
+
+querySelector(): Selects the first element that matches a CSS selector. var element = document.querySelector(".class");
+
+querySelectorAll(): Selects all elements that match a CSS selector. var elements = document.querySelectorAll(".class");
+
+Manipulating Elements
+
+Once elements are selected, various methods can be used to manipulate them:
+
+createElement(): Creates a new element. var newElement = document.createElement("div");
+
+appendChild(): Appends a node as the last child of a parent node. parentElement.appendChild(newElement);
+
+removeChild(): Removes a child node from a parent node. parentElement.removeChild(childElement);
+
+replaceChild(): Replaces a child node with a new node. parentElement.replaceChild(newElement, oldElement);
+
+cloneNode(): Clones an element. var clone = element.cloneNode(true);
+
+innerHTML: Gets or sets the HTML content of an element. element.innerHTML = "New content";
+
+textContent: Gets or sets the text content of an element. element.textContent = "New text";
+
+Working with Attributes
+
+Attributes of elements can also be manipulated using the following methods:
+
+setAttribute(): Sets the value of an attribute. element.setAttribute("class", "newClass");
+
+getAttribute(): Gets the value of an attribute. var value = element.getAttribute("class");
+
+removeAttribute(): Removes an attribute. element.removeAttribute("class");
+
+hasAttribute(): Checks if an element has a specified attribute. var hasAttr = element.hasAttribute("class");
+
+Handling Events
+
+JavaScript can handle various events on DOM elements:
+
+addEventListener(): Adds an event listener to an element. element.addEventListener("click", function() { alert("Element clicked!"); });
+
+removeEventListener(): Removes an event listener from an element. element.removeEventListener("click", eventHandler);
+
+. JavaScript accepts both double and single quotes:
+. Variable name
+    JavaScript Dollar Sign $
+    JavaScript also treats a dollar sign as a letter.
+
+    Identifiers containing $ are valid variable names:
+
+    Example
+    let $ = "Hello World";
+    let $$$ = 2;
+    let $myMoney = 5;

@@ -1,0 +1,10 @@
+Round off:
+    x = Math.round(x * 100.0) / 100.0
+
+Date:    
+    import java.text.SimpleDateFormat;
+    import java.util.Date;
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    Date date = sdf.parse(sc.nextLine());
+

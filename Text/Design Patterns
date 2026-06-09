@@ -1,0 +1,559 @@
+Design Pattern: A solid template for solving common problems
+
+Design Principles:
+-> Rules forthe software engineer, to follow the coding best practice
+-> hese are general guidelines
+-> Eg: For driving a car - follow trafic rules
+-> Adv: Code readability
+        Easy maintainability
+        Scalability
+    
+Some design principle:
+1. SOLID principle
+2. KISS (Keep it simple stupid)
+3. Yagni principle
+
+class restaurant
+hotdrink -> interface ---> tea, coffee [class] -> prepare - i'm preparing coffee
+softdrink -> Interface ---> pepsi, thumbsup [class] -> buy - i;m buing pepsi
+
+
+SOLID PRINCIPLES
+
+SOLID is a set of five design principles used in Object-Oriented Programming to make software
+
+more maintainable, scalable, and flexible.
+
+------------------------------------------------------------
+
+TABLE: SOLID PRINCIPLES
+
+------------------------------------------------------------
+
+Principle | Full Form | Description | Key Idea
+
+------------------------------------------------------------
+
+S | Single Responsibility Principle (SRP)
+
+A class should have only one responsibility or reason to change.
+
+Key Idea: One class should do only one job.
+
+O | Open/Closed Principle (OCP)
+
+Software entities should be open for extension but closed for modification.
+
+Key Idea: You should be able to add new behavior without changing existing code.
+
+L | Liskov Substitution Principle (LSP)
+
+Subclasses should be able to replace their parent class without breaking functionality.
+
+Key Idea: Child classes must behave like their parent class.
+
+I | Interface Segregation Principle (ISP)
+
+Clients should not be forced to depend on methods they do not use.
+
+Key Idea: Prefer many small interfaces instead of one large interface.
+
+D | Dependency Inversion Principle (DIP)
+
+High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+Key Idea: Depend on interfaces, not concrete classes.
+
+------------------------------------------------------------
+
+1. SINGLE RESPONSIBILITY PRINCIPLE (SRP)
+
+------------------------------------------------------------
+
+Bad Example:
+
+class Report {
+
+    public void generateReport() {
+
+        System.out.println("Generating report");
+
+    }
+
+    public void saveToFile() {
+
+        System.out.println("Saving report to file");
+
+    }
+
+}
+
+Problem:
+
+The Report class has two responsibilities:
+
+1) Generating the report
+
+2) Saving the report
+
+Good Example:
+
+class Report {
+
+    public void generateReport() {
+
+        System.out.println("Generating report");
+
+    }
+
+}
+
+class ReportSaver {
+
+    public void saveToFile() {
+
+        System.out.println("Saving report to file");
+
+    }
+
+}
+
+------------------------------------------------------------
+
+2. OPEN/CLOSED PRINCIPLE (OCP)
+
+------------------------------------------------------------
+
+Bad Example:
+
+class Discount {
+
+    public double giveDiscount(String type) {
+
+        if(type.equals("student")) {
+
+            return 10;
+
+        }
+
+        else if(type.equals("festival")) {
+
+            return 20;
+
+        }
+
+        return 0;
+
+    }
+
+}
+
+Problem:
+
+If we add a new discount type, we must modify the existing code.
+
+Good Example:
+
+interface Discount {
+
+    double giveDiscount();
+
+}
+
+class StudentDiscount implements Discount {
+
+    public double giveDiscount() {
+
+        return 10;
+
+    }
+
+}
+
+class FestivalDiscount implements Discount {
+
+    public double giveDiscount() {
+
+        return 20;
+
+    }
+
+}
+
+Now new discounts can be added without modifying existing classes.
+
+------------------------------------------------------------
+
+3. LISKOV SUBSTITUTION PRINCIPLE (LSP)
+
+------------------------------------------------------------
+
+Bad Example:
+
+class Bird {
+
+    void fly() {
+
+        System.out.println("Bird can fly");
+
+    }
+
+}
+
+class Ostrich extends Bird {
+
+    void fly() {
+
+        throw new UnsupportedOperationException("Ostrich can't fly");
+
+    }
+
+}
+
+Problem:
+
+Ostrich cannot replace Bird properly.
+
+Good Example:
+
+class Bird {}
+
+class FlyingBird extends Bird {
+
+    void fly() {
+
+        System.out.println("Flying");
+
+    }
+
+}
+
+class Sparrow extends FlyingBird {}
+
+class Ostrich extends Bird {}
+
+------------------------------------------------------------
+
+4. INTERFACE SEGREGATION PRINCIPLE (ISP)
+
+------------------------------------------------------------
+
+Bad Example:
+
+interface Worker {
+
+    void work();
+
+    void eat();
+
+}
+
+class Robot implements Worker {
+
+    public void work() {
+
+        System.out.println("Robot working");
+
+    }
+
+    public void eat() {
+
+        // Robots don't eat
+
+    }
+
+}
+
+Problem:
+
+Robot is forced to implement a method it does not use.
+
+Good Example:
+
+interface Workable {
+
+    void work();
+
+}
+
+interface Eatable {
+
+    void eat();
+
+}
+
+class Human implements Workable, Eatable {
+
+    public void work() {
+
+        System.out.println("Human working");
+
+    }
+
+    public void eat() {
+
+        System.out.println("Human eating");
+
+    }
+
+}
+
+class Robot implements Workable {
+
+    public void work() {
+
+        System.out.println("Robot working");
+
+    }
+
+}
+
+------------------------------------------------------------
+
+5. DEPENDENCY INVERSION PRINCIPLE (DIP)
+
+------------------------------------------------------------
+
+Bad Example:
+
+class Keyboard {}
+
+class Computer {
+
+    Keyboard keyboard = new Keyboard();
+
+}
+
+Problem:
+
+Computer depends directly on Keyboard.
+
+Good Example:
+
+interface InputDevice {}
+
+class Keyboard implements InputDevice {}
+
+class Computer {
+
+    InputDevice device;
+
+    Computer(InputDevice device) {
+
+        this.device = device;
+
+    }
+
+}
+
+Now Computer depends on an abstraction (InputDevice), not a concrete class.
+
+===========================================================================
+
+ Design Patterns:
+
+Design patterns are typical solutions to common problems in software design. They provide tested, proven development paradigms that make code more flexible, reusable, and easier to maintain.
+ 
+Categories of Design Patterns:
+
+1. Creational Patterns
+
+2. Structural Patterns
+
+3. Behavioral Patterns
+ 
+------------------------------------------------------------
+
+Category: Creational Patterns
+
+Purpose: Deal with object creation mechanisms, trying to create objects in a manner suitable to the situation.
+ 
+Pattern        | Explanation
+
+---------------|-------------------------------------------------
+
+Singleton      | Ensures a class has only one instance and provides a global point of access to it.
+
+Factory Method | Defines an interface for creating objects but lets subclasses decide which class to instantiate.
+
+Builder        | Separates the construction of a complex object from its representation, allowing step-by-step creation.
+ 
+------------------------------------------------------------
+
+Category: Structural Patterns
+
+Purpose: Concerned with how classes and objects are composed to form larger structures.
+ 
+Pattern        | Explanation
+
+---------------|-------------------------------------------------
+
+Adapter        | Allows incompatible interfaces to work together by acting as a bridge.
+
+Composite      | Composes objects into tree structures to represent part-whole hierarchies.
+
+Decorator      | Adds new functionality to an object dynamically without altering its structure.
+
+Facade         | Provides a simplified interface to a complex subsystem. Think of it like a hotel
+ 
+------------------------------------------------------------
+
+Category: Behavioral Patterns
+
+Purpose: Focus on communication between objects, how responsibilities are distributed, and how objects interact.
+ 
+Pattern        | Explanation
+
+---------------|-------------------------------------------------
+
+Observer       | Defines a dependency between objects so that when one changes state, all dependents are notified.
+ 
+Strategy       | Defines a family of algorithms, encapsulates each one, and makes them interchangeable.
+ 
+Command        | Encapsulates a request as an object, thereby allowing parameterization of clients with queues, requests, and operations.
+ 
+------------------------------------------------------------
+
+Summary:
+
+- Creational patterns → Object creation flexibility
+
+- Structural patterns → Object composition and relationships
+
+- Behavioral patterns → Object interaction and responsibility distribution
+
+ 
+class Singleton
+
+{
+
+	//step1.create a variable of same class, and declare static
+
+	private static Singleton instance;
+
+	//step2. make constructore
+
+	private Singleton()
+
+	{
+
+		System.out.println("Singleton Object created");
+
+	}
+ 
+	//step3. only if object is null, then it will create the object
+
+	//public getter method to return the same object
+
+	public static Singleton getInstance() {
+
+		if(instance==null)
+
+			instance= new Singleton();
+
+		return instance;
+
+	}
+
+
+}
+ 
+ 
+ 
+public class SingletonDemo {
+ 
+	public static void main(String[] args) {
+ 
+		Singleton obj1 = Singleton.getInstance();
+
+		Singleton obj2 = Singleton.getInstance();
+
+		System.out.println(obj1);
+
+		System.out.println(obj2);
+ 
+		
+
+	}
+ 
+}
+ 
+factory pattern
+ 
+interface Vehicle {
+
+    void start();
+
+}
+
+
+class Car implements Vehicle {
+
+	@Override
+
+	public void start() {
+
+		System.out.println("car is starting");
+
+	}
+
+}
+
+
+class Bike implements Vehicle {
+
+	@Override
+
+	public void start() {
+
+		System.out.println("bike is starting");
+
+	}
+
+}
+
+
+class VehicleFactory {
+
+
+	public static Vehicle getVehicle(String type)
+
+	{
+
+		if(type.equalsIgnoreCase("car"))
+
+			return new Car();
+
+		else if(type.equalsIgnoreCase("bike"))
+
+			return new Bike();
+
+		else if(type.equalsIgnoreCase("scooter"))
+
+			return new Scooter();
+
+		else 
+
+			throw new IllegalArgumentException("Invalid vehicle type");
+ 
+	}
+
+}
+
+
+public class Client {
+
+	public static void main(String[] args) {
+
+	   Vehicle v1= VehicleFactory.getVehicle("bike");
+
+	   v1.start();
+ 
+	  // Vehicle v2= VehicleFactory.getVehicle("car");
+
+	  // v2.start();
+ 
+	}
+
+}
+ 

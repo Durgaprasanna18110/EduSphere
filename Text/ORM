@@ -1,0 +1,159 @@
+ORM [Object Relational Maping]:
+    
+    -> It is used to map java object to database table
+    -> adv: It will generate database independent queries
+
+Some ORM frameworks:
+    -> hibernate(popular)
+    -> ibaties
+    -> toplink
+
+* difference btw hibernate and JPA
+
+For JPA projects you need 'Spring Data JPA' and 'MySQL Driver' libraries 
+
+Steps to create Spring boot project:
+    1. Spring starter project
+        java, maven, 17
+    2. Select the dependency
+        ex: when we want to interact with database:
+                . Spring Data JPA
+                . MySQL Driver
+    3. Fill the properties file
+        We have to add url, username, pwd, drivers, etc that are required to connect to the DB.
+        Since we have added datajpa and mysql dependency, so spring boot will try to auto configure database connection
+    4. Package creation
+        com.cts -------------- Base Package (because it has @SpringBootApplication)
+        com.cts.entity ------- It has model class for our project
+            Ex: Customer/Product/User
+            These classes should be encapsulated (i.e declare variables as private and use public setters, getters)
+            Each entity represents a table in the DB
+            Always creae a default(required) & parameterized constructor(based on need) -> This is to follow the conventions
+        com.cts.repository
+            In springboot application, if we use spring data jpa, then this layer become complete abstraction
+            Just define the interface, at runtime spring data jpa will provide the implementation
+        com.cts.service
+            We write the business logic
+            Create a service interface and then provide the implementation
+        com.cts.controller
+    
+@Entity
+    Marks a class as a DB table
+
+@Id
+    Marks the variable(field) as primary key
+
+These 2 are mandatory annotations for Entity classes
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Here’s a clear and concise breakdown of the differences between ORM, Hibernate, JPA, and Spring Data JPA:
+
+1. ORM (Object-Relational Mapping)
+
+What it is: A concept or technique for mapping Java objects to database tables and vice versa.
+Purpose: Eliminates most manual SQL by letting developers work with objects instead of rows/columns.
+Examples: Hibernate, EclipseLink, MyBatis (partially), etc.
+Key Point: ORM is not a library—it’s a design pattern or approach.
+
+
+2. Hibernate
+
+What it is: A popular ORM framework for Java.
+Role: Implements ORM by mapping Java classes to database tables.
+Features:
+
+Implements JPA specification (from Java EE).
+Provides extra features beyond JPA (e.g., caching, custom query language HQL).
+Supports multiple databases with minimal config changes.
+
+
+Key Point: Hibernate is an implementation of ORM and JPA.
+
+
+3. JPA (Java Persistence API)
+
+What it is: A Java specification (part of Java EE/Jakarta EE) that standardizes ORM in Java.
+Purpose: Defines a set of interfaces and annotations for ORM.
+Key Point:
+
+JPA is just a specification—it does not provide implementation.
+Needs a provider like Hibernate, EclipseLink, or OpenJPA to work.
+
+
+Example:Java@Entity
+public class User {
+    @Id
+    private Long id;
+    private String name;
+}
+
+
+
+
+4. Spring Data JPA
+
+What it is: A Spring framework module built on top of JPA.
+Purpose: Simplifies JPA usage by reducing boilerplate code.
+Features:
+
+Auto-generates repository implementations from interfaces.
+Supports query methods by naming convention.
+Integrates seamlessly with Spring Boot.
+
+
+Example:Javapublic interface UserRepository extends JpaRepository<User, Long> {
+    List<User> findByName(String name);
+}
+
+(No need to write SQL or JPQL manually for simple queries.)
+
+
+Summary Table
+
+
+
+Term
+Type
+Provides Implementation?
+Example Usage
+
+
+
+
+ORM
+Concept/Pattern
+❌ No
+Mapping objects to DB tables
+
+
+JPA
+Specification
+❌ No
+Defines annotations & APIs for ORM
+
+
+Hibernate
+Framework (ORM + JPA)
+✅ Yes
+Implements JPA + extra features
+
+
+Spring Data JPA
+Spring Module
+✅ Uses JPA provider
+Simplifies repository & query creation
+
+
+
+
+💡 In short:
+
+ORM → The idea.
+JPA → The standard/specification for ORM in Java.
+Hibernate → A popular implementation of JPA (and ORM).
+Spring Data JPA → A Spring abstraction layer that makes JPA/Hibernate even easier to use.
+
+
+If you want, I can also give you a diagram showing how ORM, JPA, Hibernate, and Spring Data JPA fit together so it’s visually clear.
+Do you want me to prepare that?

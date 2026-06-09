@@ -1,0 +1,316 @@
+You can't create obj for interfaces and abstract classes
+	But we can create references
+
+Abstract class can have a constructor 
+	but, an obj cannot be created
+	so we call it using the sub-class
+		This happens through Constructor chaining
+		Constructor chaning -> when you create an object of child class the suoer class constructor will be called first
+
+payment interface with doPayment method
+create 2 classes -> PhonePay
+GooglePay which implements Payment interface and provide the implementation for doPayment
+
+Upcasting occurs when a subclass object is assigned to a reference variable of its superclass. 
+
+When to declare a method as abstract ?
+When we have a method requirement but don't know the implementation. Implementation will come in subclass
+
+What is a framework ?
+-> halfbuilt solutions, predefined classes, interfaces, methods 
+
+What is a collection ?
+-> group of hetrogeneous objs where u can perform insert, retrieve and delete ops in an effective manner
+-> Collections store only object type, not primitives
+
+
+array 
+-> homogeneous
+-> Fixed size
+-> Primitive / obj type
+-> No inbuilt data structure
+-> Performance wise array is good
+
+collection
+-> hetrogeneous
+-> dynamic size(size can grow at runtime)
+-> only obj type
+-> inbuilt data structure (list, set, arraylist,......)
+-> slow compared to array
+-> in memory point of view collection is good
+
+
+Collection is the root interface for all the collections
+package: java.util
+
+list : allow duplicates
+	preserve insertion order
+set: no duplicates
+	Order is not preserved, it will be decided by sub class.
+	hashset - own order
+	linkedhashset - insertion order
+	treeset - sorted order (default ascending)
+
+queue: FIFO
+
+map: key value pair
+	key - unique ; value - can be duplicate
+Map is one type of collection but it does not extend the Collection interface
+
+Vector , stack -> introduced in jdk 1.0 so they are legacy classes
+rest of the collections including the Collection interface were introduced in jdk 1.2
+
+ArrayList
+
+** ArrayList uses dynamic arrays
+-> by default the capacity is 10
+-> When the capacity is full: new_capacity = old_capacity * 3/2 + 1
+-> because of this it's performance is slow
+
+Adv: good for retrieval (direct index access)
+dis adv: not good for insertion (increases runtime)
+
+->you can predefine the size of ArrayList
+	. In Java, you cannot directly set a fixed size for an ArrayList like you can with an array — 
+		but you can set its initial capacity when creating it.
+	. The capacity is how many elements it can hold before it needs to resize internally, 
+		while the size is how many elements it currently contains.
+		Ex: ArrayList<String> list = new ArrayList<>(10);
+
+-> Ex of polymorphism(overloading)
+in Arraylist we have a method remove() - we can remove the obj by index or object
+i.e arrlist.remove(1) or arrlist.remove("Sony")
+
+garbage collection ?
+
+
+Collection 
+-> root interface
+-> methods like: add, remove,......
+
+Collections
+-> utility class
+	A utility class in Java is a specialized class that 
+		provides a collection of static methods and sometimes static fields to perform common, reusable operations across an application. 
+		These classes are not meant to be instantiated, and their methods are accessed directly using the class name. 
+		The main purpose of a utility class is to encapsulate functionality that does not belong to any specific object or domain entity, such as string manipulation, mathematical calculations, collection operations, or validation logic. 
+-> it provides static methods
+
+In Java, only the java.lang package is imported automatically by default for every program.
+	This package contains many core classes that you can use without explicitly importing them, such as:
+	Common classes in java.lang
+		Object – Base class for all Java classes.
+		String – For working with text.
+		Math – For mathematical operations (Math.pow(), Math.sqrt(), etc.).
+		System – For standard input/output (System.out.println()).
+		Integer, Double, Boolean, etc. – Wrapper classes for primitive types.
+		Thread – For multithreading.
+		Exception, RuntimeException, Error – For exception handling.
+
+How sorting works ?
+-> If we want to sort any objs, then the class need to implement inbuilt Comparable interface (lang package)
+-> in java by default all wraper classes implement Comparable interface
+
+Can you extend String class ?
+-> No, in the documentation you can find out string class is declared a "final" 
+
+
+TO be good at:
+oops
+collections
+java 8 features
+custom exceptions
+
+
+Comparable:
+-> natural order
+-> method: compareTo()
+	takes 1 arg
+-> works on same obj
+-> single sorting
+
+
+Comparator:
+-> customize sorting(ascending / descending)
+-> method: compare(Employee e1, Employee e2)
+	takes 2 args
+-> works on diff objects
+-> multiple sorting
+
+
+LinkedList:
+-> It uses double linked list data structure
+adv: Good for insertion (just connect the new node)
+dis: retrieval is not good (no direct index access, always start from first node)
+
+
+HashSet:
+-> Own order
+-> Compares based on hashCode()
+-> Override .equals() and hashCode() methods in Employee class
+-> .equals(), hashCode() -> available in Object class
+-> HashSet compares objects based on theri class hashCode() method. So if we override these methods in the Employee clas then HashSet uses the overrided methods to compare objs of class Employee.
+-> Even if hashCode of 2 ojects are equall, .equalls() might return false, so we must override both the methods
+
+
+LinkedHashSet:
+-> Preserves insertion order
+
+TreeSet:
+-> Stores in sorted order
+-> So it requires a Comparable
+-> So we must implement Comparable in the Employee class and override the compareTo() method else a runtime execption will occur
+-> Since strings already implement the Comparable class , it works fine with strings
+
+Map: 
+-> key value pair
+	key - unique ; value - can be duplicate
+-> Map is one type of collection but it does not extend the Collection interface
+-> Implementations: HashMap, TreeMap
+
+--------------------------------------------
+
+Java 8 new features:
+
+-> Java 8 has major changes, in the java version
+-> Till JDK 1.7 -> java is oops based
+-> from JDK 1.8 onwards -> oops + functional programming
+			-> we can store function in a variable - Employee emp = () -> sop("hello");
+
+
+1. Functional programming
+2. lambda expressions
+3. method reference
+4. optional class (Anonymous classes)
+5. stream api
+6. new data and time api
+
+
+1. Functional Interface:
+-> An interface is said to be functional interface, if it has only one abstract method
+-> But it can have n number of default and static methods
+
+NOTE: @FunctionalInterface annotation is used to check, weather the interface is functional or not
+
+NOTE: 
+	interface Test
+	{
+		void disp();
+	}
+	
+Interface contains abstract methods, to provide body we have 3 ways;
+1. Create a class an implement the interface
+2. Anonymous class:
+	With interfaces we use them to override the methods of an interface without creating a class that inplements that interface
+3. Using lambda expresion (It will work, only if it is functional interface)
+
+
+Lambda Expressions:
+Rules    - no need of method name
+	- no need of parameter type
+	- (->) arrow sybmol indicates the body
+	- optional return type
+-------------------------
+normal method:
+
+void display(){
+	sop("hello")
+}
+
+lambda method:
+
+() -> sop("hello")
+
+-----------------------
+normal method:
+
+int large(int a, int b){
+	if(a > b){
+		return a;
+	}
+	return b;
+}
+
+Lambda method:
+
+(a, b) -> {
+	if(a > b){
+		return a;
+	}
+	return b;
+}
+
+
+Inbuilt functional interfaces:
+1. predicate
+2. function
+3. consumer
+
+
+==============================================================
+
+Stream api:
+-> Stream is a pipeline to process the data
+
+
+collection -> Store the obj								
+Stream -> Process the object
+
+Stream Operation:
+a. Intermediate Operation
+	After processing it again returns the stream, so that we can process it again
+	Ex: filter
+		map
+		sorted
+b. Terminal Operation
+	After processing it does not return a stream obj
+	Eg: count
+		forEach
+		collect
+
+
+static and final -> cannot ovverride these methods
+Overriding
+	. Not possible for static methods because overriding requires runtime polymorphism (dynamic binding), 
+		but static methods are bound at compile time.
+	. If a subclass defines a static method with the same signature as in the parent class, 
+		it hides the parent method — this is called method hiding, not overriding.
+
+Wrapper classes -> methods
+	1. valueOf()
+		Used to convert a primitive or String into a wrapper object.
+		Example:
+		Integer i = Integer.valueOf("10");
+		Double d = Double.valueOf(20.5);
+	2. parseXxx()
+		Converts a String into a primitive value.
+		Example:
+		int n = Integer.parseInt("100");
+		double x = Double.parseDouble("45.6");
+		boolean b = Boolean.parseBoolean("true");
+	3. xxxValue()
+		Converts a wrapper object back to its primitive.
+		Example:
+		Integer i = 50;
+		int num = i.intValue();
+		double val = i.doubleValue();
+	4. compareTo()
+		Compares two wrapper objects and returns -1, 0, or 1.
+		Example:
+		Integer a = 5, b = 10;
+		a.compareTo(b);  // returns -1
+	5. equals()
+		Checks if two wrapper objects have equal values.
+		Example:
+		Integer x = 20, y = 20;
+		x.equals(y);  // true
+	6. toString()
+		Converts a wrapper object to a String.
+		Example:
+		Integer n = 25;
+		String s = n.toString();  // "25"
+
+
+	Q. what is composition and association
+	Q. rules for multiple catch block
+		try inside try - possible ?

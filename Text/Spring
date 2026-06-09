@@ -1,0 +1,142 @@
+Maven is a build tool
+    1. It is a build tool
+    2. Using maven we can manage the projrct depeenc=dencies easily
+    3. It can compile the code, run the test cases and can package the file to jar or war files
+        jar - java archive
+        war - web archive 
+
+Spring modules:
+    1. Spring core
+    2. Spring AOP -> for cross cutting concern (not not mix business logic with non biusiness logic)
+        @RestControllerAdvice
+    3. Spring data (To interact with DB)
+    4. Spring Web
+        For java application main() is required to run / start the program 
+        Similarly for Web apps they require a server
+    5. Spring security -> RBAC (authentication & Authorization)
+    6. spring cloud -> for micro services
+
+
+Module 1:
+Spring core / depenency injection / Inversion of control
+
+What this module says..?
+-> Do not create the object, inside another java class, instead spring will create the object for you at run time
+
+Container:
+-> core java - main method is the container -> (JVM calls the main method)
+spring - IOC is the container
+
+Container is responsible for managing the objects(beans)
+    beans means object
+    object <==> beans
+
+By default the scope of beans is 'singleton'
+
+Container is responsible for creating, managing the state and destroying the beans
+
+In spring, the container is in the from class, we have 2 type off container
+    1. Bean factory (out dated) - basic
+    2. ApplicationContext (we will use this) - advanced
+
+Note:
+    -> IOC refers the beans configuration, during the object creation
+    -> IOC gives the bean name, what it has configured in beans configuration.
+    -> 3 types of configuration
+        . xml based (outdated)
+        . java based
+        . annotation based
+
+-------------------------------------------------
+
+Dependency Injection:
+
+Dependent: if any class is dependent on any other object/value, then we can say it is dependent
+
+Ex: class Employee{
+        Address;
+        name;
+        age
+    }
+
+
+Injection: If any class dependent on any object/value, providing those value from external source, not directly inside class, we are giving the value form outside the class.
+
+Types of injects:
+    . Constructor injection
+    . setter injection
+
+
+Day 13:
+Annotation based configuration
+
+autowiring:
+-> It will inject the dependency automaticaly
+    Ex: If employee wants to inject dept, then dept will be injected automatically
+
+Loosely coupled:
+    Changes in one will not effect the others
+
+Day 14:
+
+Java based Configuration
+-> Spring-context dependency is required
+
+Task:
+Create a class Database 
+    . username
+    . password
+    . url
+
+Create a class ProductRepository
+    Database database
+     void connect(){
+        
+     }
+
+
+-------------------------------------------------------
+
+Spring MVC:
+    Model - data / business logic
+    View - presentation logic
+    Controller - responsible to handle the req and res (bridge btw model & view)
+
+
+Spring MVC:
+    @Controller -> the respose will be data + view technology
+        Inorder to work with this you have to know both frontend and backend
+        Thes response will be in .html/jsp/thymeleaf format
+
+Vs
+
+Spring restful web service:
+    @RestController -> response will be only data
+        You need not know frontend
+        The response will be in json format / xml / plain text. It doesn't return view pages 
+
+Languages:
+    html/css/ootstrap -> frontend
+    java/.net         -> backend
+    sql               -> Database
+    json/xml          -> message exchange from server to server (data exchange)
+
+What is REST 
+    REpresentational State Transfer
+    representation -> format ex:  {
+                                     id: 1
+                                     name: "sachin"   
+                                  }
+    State -> current state
+
+    REST was forunded by Roy Fielding, He was inspired by the concept of http, Rest is not a protocl, It is an architecture style to interact with the backend server.
+    We interact using simple annotations
+        Ex: @PostMapping   -> add a new resource
+            @GetMapping    -> retrieve the data
+            @PutMapping    -> update the data
+            @DeleteMapping -> remove the data
+
+
+@GeneratedValue(strategy = GenerationType.IDENTITY) -> use this above variable declaration to auto generate value for that column
+
+Meta annotation -> annotation made of anotations

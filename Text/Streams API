@@ -1,0 +1,40 @@
+A Stream in Java (introduced in Java 8) is a sequence of elements that supports functional-style operations such as filtering, mapping, and reducing.
+    1. It processes data declaratively (what to do, not how to do).
+    2. Works on collections, arrays, or any data source.
+    3. Does not store data — it processes data and produces output.
+
+API stands for Application Programming Interface.
+An API is basically a set of classes, interfaces, and methods provided by a library so that programmers can use them to perform specific tasks.
+
+Key Features of Streams:
+    1. Declarative style
+        You write logic in a clean and readable way.
+    2. Functional operations
+        Supports functions like:
+            filter()
+            map()
+            sorted()
+            reduce()
+            collect()
+    3. Lazy evaluation
+        Streams don’t execute until needed (improves performance).
+    4. Can be parallel
+    5. Do not modify original data
+
+Why Do We Use Streams? 
+    1. Simplifies code
+    2. Improves readability
+    3. Supports functional programming
+    4. better performance with parallel processing
+    5. Power
+
+
+If you use a stream once, it cannot be reused -> the stream closes.
+By using streams we are not chaning the actual data.
+
+Ex: nums.stream()
+        .sorted()
+        .map(n -> n*2)
+        .forEach(n -> System.out.println(n));
+    Here 3 streams are created (.stream(), .sorted(), .map())
+    each time 1 stream is created, but here after using stream() the stream i closed an it will be replace bby the result of sorted().

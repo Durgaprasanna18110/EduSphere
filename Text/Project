@@ -1,0 +1,163 @@
+
+    . Title
+    . Modules
+        . what are the apis
+        . What are the functionality
+            . Booking a ticket
+            . Cancelling a ticket
+        
+
+        
+Custom queries
+
+1. Layered Architecture
+2. Entity Mapping (For some casses not required in microserviced)
+3. Data Validations
+4. API documentation (swagger) testing (postman)
+5. Audit column
+6. DTO
+7. Logger
+8. Unit testing
+9. unit testing (using junit and Mockito)
+10. Secure the api, only valid user can able to access it
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+To add swagger into spring boot application:
+
+1. add dependency:
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>2.8.14</version>
+    </dependency>  
+ 
+2. properties file:
+    springdoc.swagger-ui.path=/swagger-ui.html  
+
+3. run:
+   http:localhost:9000/swagger-ui.html
+   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Web application best practice:
+
+1. Data validation
+2. user roles
+3. for secure fields data encryption
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Add the validation to spring boot application
+ 
+steps 1:-
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+ 
+step2:-
+    use the validation annotation.  in Entity/ DTO  
+    All the request coming to the controller class should be validated.
+ 
+ 
+Validation Annotations Reference:
+---------------------------------
+ 
+| Field Type    | Annotation                  | Example                                      | Meaning                                |
+|---------------|-----------------------------|----------------------------------------------|----------------------------------------|
+| String        | @NotBlank                   | @NotBlank(message="Name required")           | Must not be null/empty/whitespace      |
+| String        | @Size(min=2, max=50)        | @Size(min=2, max=50)                         | Length constraints                     |
+| String        | @Pattern(regexp="^[A-Za-z]+$") | @Pattern(regexp="^[A-Za-z]+$")             | Regex validation                       |
+| int / long    | @Min(18)                    | @Min(18)                                     | Minimum value                          |
+| int / long    | @Max(65)                    | @Max(65)                                     | Maximum value                          |
+| int / long    | @Positive                   | @Positive                                    | Must be > 0                            |
+| double/float  | @DecimalMin("0.0")          | @DecimalMin("0.0")                           | Minimum decimal                        |
+| double/float  | @DecimalMax("100.0")        | @DecimalMax("100.0")                         | Maximum decimal                        |
+| double/float  | @Digits(integer=5,fraction=2) | @Digits(integer=5, fraction=2)             | Precision control                      |
+| Date          | @Past                       | @Past                                        | Must be before now                     |
+| Date          | @Future                     | @Future                                      | Must be after now                      |
+| Date          | @PastOrPresent              | @PastOrPresent                               | Must be ≤ now                          |
+| Date          | @FutureOrPresent            | @FutureOrPresent                             | Must be ≥ now                          |
+| Boolean       | @AssertTrue                 | @AssertTrue                                  | Must be true                           |
+| Boolean       | @AssertFalse                | @AssertFalse                                 | Must be false                          |
+| Any Object    | @NotNull                    | @NotNull                                     | Must not be null                       |
+| Nested Object | @Valid                      | @Valid private Address address;              | Cascade validation to nested objects   |
+ 
+ 
+step3:
+    add @valid to RequestBody. 
+    if any validation fails it will throw this exception MethodArgumentNotValidException.
+ 
+
+4.create a handler for MethodArgumentNotValidException.  
+ 
+   
+	@ExceptionHandler(exception = MethodArgumentNotValidException.class)
+	public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException exception)
+	{
+		Map<String, String> errors = new HashMap<>();
+		for(FieldError fieldError : exception.getBindingResult().getFieldErrors())
+		{
+			errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+		}
+
+		return new ResponseEntity<Map<String,String>>(errors, HttpStatus.BAD_REQUEST);
+	}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Audit Column:
+     
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Logger:
+
+    Used to log the application activity
+
+    diff btw logger and System.out.print [sop]:
+
+        Sop:
+            . output print in console
+            . no message priority
+        
+        logger
+            . logger output can be console, file, database
+            . we can have  priority for the message 
+                it uses log levels
+            . It is easily pluglable, (we can add or remove easily simply by switch on/ of)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Junit and Mockito:
+
+    Testing:
+        . Improve quality of software
+        . Removes the bug
+    
+    Different types of testing:
+        . Black box testing
+        . White box testing
+        . Functional testing
+        . Acceptance testing
+        . Unit testing -> (Only this one is done by developers rest are done bu testers)
+
+    Libraries:
+        . collections lib -> jdk
+        . Scanner lib -> jdk
+        . junit lib -> (not available in jdk, it is an external library -> should download seperately)
+
+Mockito:
+    . It is a mocking framework
+    . mock -> dummy / not real
+
+    By unit testing we test the business logic
+    business logic -> might depend on some external services

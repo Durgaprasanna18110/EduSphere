@@ -1,0 +1,44 @@
+AGILE:
+
+Stages in SDLC:
+1. Req gathering
+2. Feasibility study
+3. design -> High level & Low level
+4. code
+5. testing -> 
+    Aceptance testing
+    Unit testing
+    Integration testing
+    functional testing
+6. deployment
+    dev server
+    teting server
+    production server (Where the code is live)
+7. maintanance
+    post deployment(24*7)
+    timely system update, regular data base Backup
+
+
+Product-Based Companies
+They build and sell their own products (software or hardware) to a broad market.
+Revenue Model: Earn money by selling licenses, subscriptions, or packaged solutions.
+Requirements come from market research, customer feedback, and internal product teams (R&D teams)
+
+Service-Based Companies
+They provide IT services, consulting, or custom software solutions tailored to client needs.
+Revenue Model: Earn money through contracts, projects, and billable hours.
+Requirements come directly from clients.
+
+
+1. Waterfall
+2. Agile
+    What is agile
+    Agile frameworks:
+        a. Scrum (only this is enough)
+            Sprints - 2 to 4 weeks
+            A product feature will be developed by the end of a sprint
+        b. Kanban
+    
+git vs github:
+git - local repo
+git hub - remote repo (cloud)

@@ -1,0 +1,38 @@
+sql
+
+1. != NULL
+In SQL, NULL represents “unknown” or “no value.”
+
+Any comparison with NULL (like column != NULL or column = NULL) always evaluates to UNKNOWN, not true or false.
+
+That means != NULL will never return rows, because SQL doesn’t treat NULL as a normal value you can compare with operators like = or !=.
+
+2. IS NOT NULL
+This is the correct way to check for non-null values.
+
+IS NOT NULL explicitly tests whether a column contains a value (anything other than NULL).
+
+It will return rows where the column has actual data
+
+--------------------------
+
+GROUP BY ... WHERE
+WHERE filters rows before grouping happens.
+
+It applies to individual rows in the table.
+
+Use it when you want to restrict which rows are included in the grouping.
+
+GROUP BY ... HAVING
+HAVING filters groups after the grouping and aggregation are done.
+
+It applies to the aggregated results (like COUNT, SUM, AVG).
+
+Use it when you want to restrict which groups appear in the final result.
+
+------------------------------
+
+year(date)
+month(date)
+monthname(date)
+datediff(currdate(), dob) / 365 => gives age

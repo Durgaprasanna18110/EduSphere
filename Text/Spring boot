@@ -1,0 +1,55 @@
+Spring boot
+
+    -> built on top of spring framework
+    -> It removes boilerplate code from spring framework
+    -> In spring boot it supports java based & annotation based configuration 
+        and everything is auto configured.
+    -> It is mainly used to create microservice application
+    -> It has starter parent dependency. (to work with any module, it will download all the required dependency)
+        ex:
+            spring boot-starter-web ---> (has tomcat library, mvc library, etc.)
+    
+    Goto spring initializer -> create project and download it
+
+    dependencies are readily availabe with the initializer 
+
+Got it — you’re asking specifically about the .class part in:
+
+Java
+
+Copy code
+SpringApplication.run(CourseServiceApplication.class, args);
+Let’s break that down clearly.
+
+What .class means in Java
+In Java, every class you write (e.g., CourseServiceApplication) has a special class literal syntax:
+ClassName.class
+This is not a file — it’s a way to get a Class object at runtime.
+The Class object is part of Java’s reflection API and contains metadata about the class (its name, methods, annotations, etc.).
+Example
+Java
+    Class<?> clazz = CourseServiceApplication.class;
+    System.out.println(clazz.getName()); // prints "com.example.CourseServiceApplication"
+Here, CourseServiceApplication.class returns a Class object representing the CourseServiceApplication type.
+
+Why Spring Boot needs it
+SpringApplication.run() has this signature:
+
+Java
+    public static ConfigurableApplicationContext run(Class<?> primarySource, String... args)
+
+The first parameter (primarySource) tells Spring Boot:
+Which class is the starting point of the application.
+Where to begin component scanning (usually the package of this class and its subpackages).
+Passing CourseServiceApplication.class means:
+“Here’s the main application class — use it to configure and start the Spring context.”
+
+Analogy
+Think of .class as pointing to the blueprint of your class, not an object of it.
+Spring Boot uses that blueprint to:
+
+Find annotations like @SpringBootApplication
+Locate beans and configurations
+Start the application from that package
+✅ In short:
+CourseServiceApplication.class is a reference to the Class object for CourseServiceApplication, which Spring Boot uses to know where and how to start your app.

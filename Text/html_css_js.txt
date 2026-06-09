@@ -1,0 +1,50 @@
+
+HTTP - set of rules for communication btw a client and server
+when you load a web page you are basically getting the documents(html, css,... files) over http protocol
+
+just like a browser you can use postman to ask for a particular web page. if you paste the link then that web page's source code, headers, etc will be loaded.
+Till here it is same as browser but browser will also render the content i.e converts the code into a more comprehendable visual content that users see and interact with
+
+!(enter) -> gives the boiler plate codde in vs code
+h3*3 -> gives 3 h3 tags
+lorem20(enter) -> gives a paragraph text
+
+html - structure of the web page
+	head - contains additional info about the web page
+		<meta> tag is used to provide metadata(information about the HTML document) to browsers, search engines, and other web services.
+		It is placed inside the <head> section and does not display on the page itself.
+	body - contains the actual structure
+css - style / looks
+js - enables interaction
+
+Mozilla developer networks -> MDN web docs
+
+DOM → Focuses on the document structure (HTML/XML), enabling manipulation of elements, attributes, and styles.
+
+BOM → Focuses on the browser environment, enabling control over windows, navigation, history, and screen information.
+
+<script> Tag - Used to include JavaScript code (either inline or from an external file).
+	Attributes:
+	src → Path to external JavaScript file.
+	type → MIME type (default is text/javascript).
+	defer → Executes script after HTML parsing.
+	async → Executes script asynchronously.
+
+	<script src="script.js" defer></script>
+
+	<!-- Inline JavaScript -->
+	<script>
+    		console.log("Hello from inlineJavaScript!");
+	</script>
+
+
+<link> Tag - Used to link external resources like CSS stylesheets, icons, etc.
+	Attributes:
+	rel → Relationship of the linked file (e.g., stylesheet, icon).
+	href → Path to the resource.
+	type → MIME type (optional for CSS).
+
+	<!-- External CSS -->
+	<link rel="stylesheet" href="styles.css">
+
+

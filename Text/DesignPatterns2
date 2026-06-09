@@ -1,0 +1,90 @@
+DESIGN PATTERNS:
+1. Creational: Deal with the process of creation of objs
+2. Structural: Deal with how classes & objs are arranged or composed
+3. Behavioural: Describe how classes and objects interact & communicate with each other
+
+Builder pattern:
+The Problem It Solves: 
+Imagine you want to create a Car object. A car can have:
+An engine type (e.g., V6, V8, Electric)
+
+A number of seats
+
+Optional features like a sunroof
+
+If you use a constructor with parameters, it might look like this:
+Car car = new Car("V8", 4, true);
+This works, but it’s not very clear what each argument means. 
+If you add more options, the constructor becomes long and confusing (called a telescoping constructor problem).
+// Product class
+class Car {
+    private String engine;
+    private int seats;
+    private boolean sunroof;
+
+    // Private constructor to enforce use of Builder
+    private Car(CarBuilder builder) {
+        this.engine = builder.engine;
+        this.seats = builder.seats;
+        this.sunroof = builder.sunroof;
+    }
+
+    @Override
+    public String toString() {
+        return "Car with " + engine + " engine, " + seats + " seats, sunroof: " + sunroof;
+    }
+
+    // Builder class
+    public static class CarBuilder {
+        private String engine;
+        private int seats;
+        private boolean sunroof;
+
+        public CarBuilder setEngine(String engine) {
+            this.engine = engine;
+            return this; // allows chaining
+        }
+
+        public CarBuilder setSeats(int seats) {
+            this.seats = seats;
+            return this;
+        }
+
+        public CarBuilder setSunroof(boolean sunroof) {
+            this.sunroof = sunroof;
+            return this;
+        }
+
+        public Car build() {
+            return new Car(this);
+        }
+    }
+}
+
+// Client code
+public class BuilderExample {
+    public static void main(String[] args) {
+        Car car = new Car.CarBuilder()
+                        .setEngine("V8")
+                        .setSeats(4)
+                        .setSunroof(true)
+                        .build();
+
+        System.out.println(car);
+    }
+}
+
+4 parts:
+a. Product - the complext obj thet we want to create
+b. Builder - Provides interface(not java interface) for creating parts of the product
+c. Concrete Builder - If your builder is an interface then this concrete builder is just it's implementation
+d. Director - Uses the builder to construct obj
+
+The constructr of the product class should be private
+Write the builder class as inner class and static
+Write setter methods in the inner builder class 
+So, The builder can directly access the private fields of the outer class.
+This avoids exposing setters in the product class itself, keeping the product immutable after construction.
+As an inner class, it’s clear that the builder belongs only to Car and isn’t meant to be reused elsewhere.
+
+The cient code is the 'Builder Driver'

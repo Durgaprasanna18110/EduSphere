@@ -1,0 +1,4 @@
+1. When the user first logs lin the server generates a Token
+2. So the next time user aks for any service, he has to send that token to the server along with his request
+3. Then the server validates the token and responds 
+

@@ -1,0 +1,8 @@
+devops:
+    some if the devops tools
+
+docker:
+    it is used to ship the application from one env to other env
+            developer system --- productions server/ development server
+
+docker

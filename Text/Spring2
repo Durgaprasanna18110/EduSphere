@@ -1,0 +1,342 @@
+Spring: It is a dependency injection framework that complements the existing JavaEE 
+
+Inversion of Control : the process of moving the control of cobject creation form the application code to an external framework 
+
+Alongside dependency injection Spring makes it esay for developers to use the existing APIs and Frameworks
+    Ex: Spring JDBC is like a wrap aroud of the actual jdbc provided by oracle -> helps developers write sql statements in one line
+    Ex: Spring ORM, Spring MVC
+
+Spring Container: it is a component that comes with the spring spring framework which is responsible for creating objects, 
+        storing them and injecting them whever required
+    It maintains the complete lifecycle of objects (from creation to destruction)
+    The container needs 2 thingd -> Beans & xml config
+
+Beans = POJO [Plain Old Java Object] 
+
+ApplicationContext -> this inteface in spring represents a container                       
+    3 implementations:
+        1. ClasspathXMLApplicationContext
+            Loads bean definitions from an XML configuration file located in the classpath.
+            Useful when configuration files are bundled inside the application (e.g., inside src/main/resources).
+                Classpath - is a parameter that tells the Java Virtual Machine (JVM) and the Java compiler 
+                where to look for user-defined classes, packages, and resources needed to run or compile a program.
+        2. FileSystemXMLApplicationContext
+            Loads bean definitions from an XML configuration file located in the file system (outside the classpath).
+            Useful when configuration files are external to the application, allowing changes without redeploying the app.
+        3. AnnotationConfigApplicationContext
+            Loads bean definitions from Java-based configuration classes annotated with @Configuration and @Bean.
+
+2 types of Dependency Injection:
+    . Constructor injection
+        <bean id="mathCheatObjectValue" class="MathCheat"/>
+        <bean id="student" class="Student">
+            <constructor-arg name="id" value="101"/>
+            <constructor-arg name="mathCheat" ref="mathCheatObjectValue"/>
+        </bean>
+
+    . Setter injection
+        <bean id="employee" class="com.javatpoint.Employee">
+            <property name="id" value="101"/>
+            <property name="name" value="John"/>
+            <property name="city" value="New York"/>
+        </bean>
+
+Constructor Ambuigity Problem:
+    When giveing values in xml file they are given as string and then based on the datatype in the constructor
+     the type is resolved using parseInt/ pareFloat, etc
+    But when there is more than 1 constructor with same no of parameters but diff
+     data types then the abmiguity problem comes and the 1st constructor in the order willl be invoked
+     Ex: add(int a, int b) 
+         add(double a, double b)
+    But if there is add(String a, String b) then this one will be invoked because the type has matched
+    To resolve this ambiguity we use the "type" attribute
+        Ex: <constructor-arg name = "a" value = "10" type = "int" /> 
+
+
+    "index"attribute is used inside the <constructor-arg> tag to explicitly specify the position of the constructor parameter. 
+    This helps Spring determine which constructor argument maps to which parameter
+    ex: <constructor-arg index="0" value="10"/>
+        <constructor-arg index="1" value="project"/>
+
+
+Types of dependencies (Based on Data types): 
+    Primitive
+    Collection
+    Reference
+
+    For injecting primitive type values in xml you can give value as an element or as an attribute
+        Ex: <value>10</value> or <property name = "id" value = "10">
+        
+        Note:
+        See here for value attribute we are giving as string
+        but for value elment we are giveing directly
+
+    Another alternative to 'value' is using p:namespace (or p scheema)
+
+Injecting collections:
+    <bean id="collectionBean" class="com.example.CollectionInjectionExample">
+        <property name="list">
+            <list>
+                <value>Apple</value>
+                <value>Banana</value>
+                <value>Cherry</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>Red</value>
+                <value>Green</value>
+                <value>Blue</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="A" value="Alpha"/>
+                <entry key="B" value="Beta"/>
+                <entry key="C" value="Gamma"/>
+            </map>
+        </property>
+    </bean
+
+    The tags are same for ArrayList and LinkedList also. Only you have to declare the element(variable) as Arraylist / LL 
+
+    While injecting a List type if the list has only one element then using list element in the XML Configuration is optional
+
+Injecting Reference elements:
+    <bean id="mathCheatObjectValue" class="MathCheat"/>
+        <bean id="student" class="Student">
+            <constructor-arg name="id" value="101"/>
+            <constructor-arg name="mathCheat" ref="mathCheatObjectValue"/>
+        </bean>
+    
+    We use the <ref> element -> similar to value this can also be used as an attribute or element(tag)
+
+    Reference types can also be injected using p schema
+
+For all the above examples instead of writing <bean id="xyz"/> we can write <bean name="xyz, z"/>
+    In name attribute we can give multile values.
+
+Difference btw Annotation based and Java based Configuratuion:
+    Annotation-Based Configuration:
+        Uses annotations directly inside classes (@Component, @Service, @Repository, @Controller, @Autowired, @Value, etc.).
+        Beans are discovered automatically through component scanning.
+        Ex:
+            @Component
+            public class Student {
+                @Autowired
+                private Address address;
+            }
+            You don’t explicitly define beans in a configuration class; 
+            instead, Spring scans packages and registers annotated classes as beans.
+
+    Java-Based Configuration
+        Uses @Configuration classes with @Bean methods to explicitly declare beans.
+        You write factory methods that return bean instances.
+        Ex:
+            @Configuration
+            public class AppConfig {
+                @Bean
+                public Student student() {
+                    return new Student(address());
+                }
+
+                @Bean
+                public Address address() {
+                    return new Address("Chennai", "600001");
+                }
+            }
+        No need for XML; beans are defined programmatically but still managed by Spring.
+
+Life cycle methods of Spring beans:
+    1. init() -> Invoked after the creation and injection of spring bean
+    2. destroy()
+
+Life cycle methods can be configured in 3 ways:
+    1. xml confiuration
+            In the class which you want as a bean define 2 methods (name them as per your wish) 
+
+            <bean id="myBean" class="com.example.MyBean"
+                init-method="init"
+                destroy-method="cleanup"/>
+
+            Even after adding this the destruction method might not be called. You have to include -> 
+            AbstractApplicationContext instead of ApplicationContext and          context.registerShutdownHook();
+
+    2. Spring Interfaces
+            You have to implement InitializingBean(for init method) and DisposableBean(for destroy method) Interfaces
+            Override - afterPropertiesSet() & destory() methods respectively
+            Here also 'registerShutdownHook()' this hook is required
+    3. Annotations
+            @PostConstruct
+            @PreDestroy
+            Inorder to use the above annotations with JDK 9 and above we need to add javax.annotation-api dependency in pom.xml
+            By default spring doesn't enable all annotations
+            So, if you are using any xml based connfig file then you have to enable support for these annotations
+            But, you're using @Configuration classes, Spring Boot or plain Java config(Ex: AppConfig [java based configuration]), you don't need extra XML.
+
+Dependency check:
+    @Required: it is used to mark a bean property as mandatory.
+    Applied on setter methods of bean properties.
+    Inorder to use this you have to enable support for @Required in (Java-based / xml based configuration). The key is that Spring needs the RequiredAnnotationBeanPostProcessor registered in the application context.
+    Modern replacement for @Required is @Autowired
+
+Inner Beans:
+    Used when a bean is needed only by one specific parent bean and doesn't need to be shared elsewhere in the container.
+    . (xml based )inner beans are beans defined inside the <property> or <constructor-arg> element of another bean.
+    . They do not have an id or name because they cannot be referenced outside their parent bean.
+    . Inner Beans are mainly used when the dependency is private to one bean.
+
+    XML based:
+    <bean id="student" class="com.example.Student">
+        <property name="address">
+            <!-- Inner bean -->
+            <bean class="com.example.Address">
+                <property name="city" value="Chennai"/>
+                <property name="zipcode" value="600001"/>
+            </bean>
+        </property>
+    </bean>
+
+    Java based:
+    @Configuration
+    public class AppConfig {
+
+        @Bean
+        public Student student() {
+            // Inner bean equivalent: Address created only here
+            Address address = new Address("Chennai", "600001");
+            Student student = new Student();
+            student.setAddress(address);
+            return student;
+        }
+    }
+
+    Annotation based:
+    @Component
+    public class Student {
+        private Address address;
+
+        public Student() {
+            // Inner bean equivalent: Address created only here
+            this.address = new Address("Chennai", "600001");
+        }
+    }
+
+Scope of beans:
+    . singleton (Default)
+    . prototype - creates new objects every time
+        Only for Spring MVC web application
+    . request - only A new bean instance is created for each HTTP request.
+    . session - A new bean instance is created for each user session.
+        Only for Spring MVC Portlets
+    . globalsession - similar to session, but applies to a global HTTP session in a Portlet environment 
+
+@Service
+    . It marks the class as a service-layer component.
+    . It's functionally similar to @Component, but semantically clearer
+    . it tells other developers that this class belongs to the service layer.
+
+Bean Externalization
+    . It is using the .properties file
+    . In this file we give key value pairs. Here also the values are given as Strings
+    . The keys are case sensitive
+    . We give give duplicate keys then the last value will be onsidered
+
+    To link the properties file in xml use
+        <context:property-placeholder location"full_path.app.properties"/>
+    
+    To read the value:
+        value= "${dbPort}""
+
+Autowiring:
+    . xml
+    . Annotations
+        -> @Autowired
+        -> @Qualifier
+        
+
+@Autowired:
+    this can be used at
+    Field level: Field injection is simplest but discouraged because it breaks testability and immutability.
+    Constructor level: recommended approach as it ensures mandatory dependencies (dependencies cannot be null), 
+        supports immutability, and is best for unit testing.
+    Setter level : used when the dependency is optional or can change after object creation.
+
+@Qualifier
+    Used to resolve ambiguity when multiple beans of the same type exist in the Spring container.
+    Spring normally injects dependencies by type.
+    If there are two or more beans of the same type, Spring doesn’t know which one to use → results in:
+    NoUniqueBeanDefinitionException
+    1. Field Injection
+        @Autowired
+        @Qualifier("upiPayment")
+        private PaymentService paymentService;
+
+    2. Constructor Injection (Recommended)
+        private final PaymentService paymentService;
+        @Autowired
+        public MyController(@Qualifier("creditCardPayment") PaymentService paymentService) 
+        {    
+            this.paymentService = paymentService;
+        }
+
+    3. Setter Injection
+        @Autowired
+        public void setPaymentService(@Qualifier("upiPayment") PaymentService paymentService) 
+        {
+            this.paymentService = paymentService;
+        }
+
+
+Spring expression language (SpEL):
+
+    #  - this symbol tells the container that it should evaluate the following expression
+    {} - We write our expression within {} (ex: {4+7})
+            Ex: @Value("#{4+7}")
+                @Value("#{5>6?22:33}")
+    $  - used by Spring to inject values from application.properties.
+            Ex: ${prop}
+            prop=apple,banana,mango
+    '${prop}' - Wrap it in SpEL string literal
+    
+    . Because SpEL is not Java.
+        SpEL uses:
+        'string' → string
+        "string" → not valid SpEL string
+    
+        Ex: @Value("#{'${prop}'.split(',')}")
+
+    . Maps cannot be injected using ${} alone — only #{ } can evaluate them into a real Java Map.
+        my.map.values={key1:'val1', key2:'val2'}
+        This is not valid Java syntax.
+        Spring reads it as a String:
+        "{key1:'val1', key2:'val2'}"
+        So ${my.map.values} → is literally a raw string.
+        need # because the inner ${my.map.values} becomes a Map ONLY inside a SpEL expression.
+    
+    . For list, set and map you should use #
+    . For arrays $ is suffucient
+
+    . Property placeholder - in Spring it refers to the ${...} syntax 
+            that allows you to inject values from an external properties file 
+    
+    Using static methods:
+        T(class_name).method(parameters)
+        Ex: @Value("#{T(java.lang.Math).abs(-99)}")
+    
+    Accessing Static variables:
+        Similar to the above one
+        Ex: @Value("#{T(java.lang.Integer).MIN_VALUE}")
+
+    Creating Objects:
+        Ex: @Value("#{new Integer(88)}")
+
+    Expressing Boolean types:
+        Ex: @Value("#{2+4 > 5}")
+            private boolean isTrue;
+        You write any expression that evaluates to True
+
+In realtime we dont usually inject classes, we inject Interfaces
+Injecting interfaces ensure loose coupling through runtime polymorphism 
+We can have various implementations for the same interface
+
